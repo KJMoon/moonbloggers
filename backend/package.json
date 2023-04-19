@@ -1,0 +1,24 @@
+{
+  "name": "moonbloggers-backend",
+  "version": "1.0.0",
+  "description": "The best site to blog daily!",
+  "main": "server.js",
+  "contributors": [
+    {
+      "name": "Eric Moon"
+    }
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e 'js, jsx, json' server.js -L"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.1",
+    "pg": "^8.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
