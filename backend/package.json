@@ -1,5 +1,5 @@
 {
-  "name": "moonbloggers-backend",
+  "name": "moonbloggers",
   "version": "1.0.0",
   "description": "The best site to blog daily!",
   "main": "server.js",
