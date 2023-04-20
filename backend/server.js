@@ -4,6 +4,7 @@ const express = require("express");
 // App
 const app = express();
 const cors = require("cors");
+const mainRoutes = require("./routes/main");
 
 // Constants
 const PORT = 5000;
@@ -17,7 +18,9 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Backend is working!")
-})
+});
+
+app.use("/", mainRoutes);
 
 app.listen(PORT, HOST, () => {
   console.log(`Howler is running on http://${HOST}:${PORT}`);
