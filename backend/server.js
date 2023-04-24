@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mainRoutes = require("./routes/main");
+const postRoutes = require("./routes/posts");
 
 // Constants
 const PORT = 5000;
@@ -21,7 +22,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", mainRoutes);
+app.use("/api/post", postRoutes);
 
 app.listen(PORT, HOST, () => {
-  console.log(`Howler is running on http://${HOST}:${PORT}`);
+  console.log(`MoonBloggers is running on http://${HOST}:${PORT}`);
 });
