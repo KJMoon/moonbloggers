@@ -4,6 +4,11 @@ services:
   frontend:
     build: ./frontend
     container_name: frontend
+    environment:
+      - REACT_APP_AUTH_ISSUER_BASE_URL=${REACT_APP_AUTH_ISSUER_BASE_URL}
+      - REACT_APP_AUTH_CLIENT_ID=${REACT_APP_AUTH_CLIENT_ID}
+      - REACT_APP_AUTH_BASE_URL=${REACT_APP_AUTH_BASE_URL}
+      - REACT_APP_AUTH_SECRET=${REACT_APP_AUTH_SECRET}
     ports:
       - "3000:3000"
     expose:
