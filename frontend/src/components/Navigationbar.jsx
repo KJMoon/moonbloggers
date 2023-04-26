@@ -15,7 +15,7 @@ import AuthButton from "../components/AuthButton";
 function Navigationbar() {
   const { isAuthenticated, isLoading } = useAuth0();
 
-  if (isAuthenticated || isLoading) {
+  if (isAuthenticated && !isLoading) {
     return (
       <Navbar fixed="top" bg="primary-subtle" expand="sm">
         <Container fluid>

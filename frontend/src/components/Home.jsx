@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Image } from "react-bootstrap";
 function Home() {
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
-  if (isAuthenticated || isLoading) {
+  if (isAuthenticated && !isLoading) {
     return (
       <>
         <Container
