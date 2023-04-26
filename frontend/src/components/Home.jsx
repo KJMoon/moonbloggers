@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import Feed from "./Feed";
 
 function Home() {
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
@@ -8,44 +9,14 @@ function Home() {
   if (isAuthenticated && !isLoading) {
     return (
       <>
-        <Container
-          className="d-none d-sm-block"
-          style={{ marginTop: "56px" }}
-          fluid
-        >
-          <Row>
-            <Col sm className="text-center">
-              Home Page
-            </Col>
-            <Col sm className="text-center">
-              Hello
-            </Col>
-          </Row>
-        </Container>
-        <Container
-          className="d-sm-none content-sm"
-          style={{ marginTop: "96px" }}
-          fluid
-        >
-          <Row style={{ height: "400px" }}>
-            <Col sm className="text-center">
-              Home Page
-            </Col>
-            <Col sm className="text-center">
-              Hello
-            </Col>
-          </Row>
-        </Container>
+        <h2 className="text-center">Home</h2>
+        <Feed />
       </>
     );
-  } else {
+  } else if (!isAuthenticated && !isLoading) {
     return (
       <>
-        <Container
-          className="d-none d-sm-block"
-          style={{ marginTop: "56px" }}
-          fluid
-        >
+        <Container className="d-none d-sm-block" fluid>
           <Row className="d-flex justify-content-center align-items-center bg-dark text-white vh-100">
             <Col
               sm={6}
@@ -83,7 +54,7 @@ function Home() {
             </Col>
           </Row>
         </Container>
-        <Container className="d-sm-none" style={{ marginTop: "56px" }} fluid>
+        <Container className="d-sm-none" fluid>
           <Row className="d-flex justify-content-center align-items-center bg-dark text-white vh-100">
             <Col
               sm
@@ -117,6 +88,8 @@ function Home() {
         </Container>
       </>
     );
+  } else {
+    return;
   }
 }
 
