@@ -8,17 +8,27 @@ import {
   Navbar,
   NavDropdown,
   Offcanvas,
+  Image,
 } from "react-bootstrap";
 import AuthButton from "../components/AuthButton";
 
 function Navigationbar() {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
-  if (isAuthenticated) {
+  if (isAuthenticated || isLoading) {
     return (
-      <Navbar fixed="top" bg="light" expand="sm">
+      <Navbar fixed="top" bg="primary-subtle" expand="sm">
         <Container fluid>
           <Navbar.Brand href="http://localhost:3000/">
+            <Image
+              src="https://pic.onlinewebfonts.com/svg/img_7362.png"
+              alt="logo"
+              style={{
+                width: "40px",
+                objectFit: "contain",
+              }}
+              fluid
+            />
             Moonbloggers
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
@@ -70,28 +80,20 @@ function Navigationbar() {
     );
   } else {
     return (
-      <Navbar fixed="top" bg="light" expand="sm">
+      <Navbar fixed="top" bg="primary-subtle" expand="sm">
         <Container fluid>
           <Navbar.Brand href="http://localhost:3000/">
+            <Image
+              src="https://pic.onlinewebfonts.com/svg/img_7362.png"
+              alt="logo"
+              style={{
+                width: "40px",
+                objectFit: "contain",
+              }}
+              fluid
+            />
             Moonbloggers
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
-          <Navbar.Offcanvas
-            id={`offcanvasNavbar-expand-sm`}
-            aria-labelledby={`offcanvasNavbarLabel-expand-sm`}
-            placement="end"
-          >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-sm`}>
-                Moonbloggers
-              </Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
-                <AuthButton />
-              </Nav>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
         </Container>
       </Navbar>
     );

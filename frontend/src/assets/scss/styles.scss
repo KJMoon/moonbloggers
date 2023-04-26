@@ -1,1 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
+
+@media screen and (min-width: 226px) and (max-width: 576px) {
+    .content-sm {
+      margin-top: 56px !important;
+    }
+}
