@@ -6,8 +6,9 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import "./assets/scss/styles.scss";
+import { Auth0Provider } from "@auth0/auth0-react";
 import Home from "./components/Home";
+import "./assets/scss/styles.scss";
 
 // layouts
 import RootLayout from "./layouts/RootLayout";
@@ -24,8 +25,19 @@ const router = createBrowserRouter(
 
 const root = createRoot(document.getElementById("root"));
 
+const auth0Domain = process.env.REACT_APP_AUTH_ISSUER_BASE_URL;
+const auth0ClientId = process.env.REACT_APP_AUTH_CLIENT_ID;
+
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} fallbackElement={<Error />} />
+    <Auth0Provider
+      domain={auth0Domain}
+      clientId={auth0ClientId}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <RouterProvider router={router} fallbackElement={<Error />} />
+    </Auth0Provider>
   </React.StrictMode>
 );

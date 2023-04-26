@@ -36,3 +36,11 @@ INSERT INTO posts (content, user_id)
 SELECT 'I am a minion!', id
 FROM users
 WHERE auth0_token='google-oauth2|100942908378109046967';
+
+INSERT INTO users (username, auth0_token)
+VALUES ('test', 'auth0|644936354b9d72237c8309fa');
+
+INSERT INTO posts (content, user_id)
+SELECT 'Testing out this moonblog!', id
+FROM users
+WHERE auth0_token='auth0|644936354b9d72237c8309fa';
