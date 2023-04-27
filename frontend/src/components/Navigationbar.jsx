@@ -13,7 +13,7 @@ import {
 import AuthButton from "../components/AuthButton";
 
 function Navigationbar() {
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   if (isAuthenticated && !isLoading) {
     return (
@@ -45,7 +45,7 @@ function Navigationbar() {
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/">Profile</Nav.Link>
+                <Nav.Link href={`/${user.nickname}`}>Profile</Nav.Link>
                 <NavDropdown
                   title="Menu"
                   id={`offcanvasNavbarDropdown-expand-sm`}
