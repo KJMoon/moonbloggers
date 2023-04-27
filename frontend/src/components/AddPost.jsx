@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { ProgressBar } from "react-bootstrap";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 function AddPost() {
   const navigate = useNavigate();
@@ -69,7 +69,20 @@ function AddPost() {
                   }}
                 />
               </FloatingLabel>
-              <ProgressBar now={progress} label={`${content.length}`} />
+              {maxChars === content.length ? (
+                <ProgressBar
+                  variant="info"
+                  now={progress}
+                  label={`${content.length}`}
+                />
+              ) : (
+                <ProgressBar
+                  striped
+                  variant="info"
+                  now={progress}
+                  label={`${content.length}`}
+                />
+              )}
             </Card.Body>
             <Card.Footer className="d-flex justify-content-end gap-3">
               <Button variant="primary" disabled={!content} onClick={addPost}>
