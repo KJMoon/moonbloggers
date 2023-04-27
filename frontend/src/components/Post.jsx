@@ -12,7 +12,7 @@ import { FiEdit } from "react-icons/fi";
 
 function Post() {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const { postId } = useParams();
 
   const [show, setShow] = useState(false);
@@ -90,73 +90,80 @@ function Post() {
     }
   };
 
-  return (
-    <>
-      <Container
-        className="d-flex justify-content-center align-items-center feed-sm mt-2"
-        style={{ minWidth: "270px", minHeight: "calc(100vh - 120px)" }}
-      >
-        <Card style={{ width: "35rem" }}>
-          <Card.Body>
-            <Card.Title>{post.user}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">
-              {post.updated_at}
-            </Card.Subtitle>
-            <hr className="bg-primary-subtle border-2 border-top border-primary-subtle" />
-            <Card.Text>{post.content}</Card.Text>
-          </Card.Body>
-          {user && user.nickname == post.user && (
-            <Card.Footer className="d-flex justify-content-end gap-3">
-              <Button variant="outline-primary" onClick={handleShow}>
-                <FiEdit />
-              </Button>
+  if (isAuthenticated && !isLoading) {
+    return (
+      <>
+        <Container
+          className="d-flex justify-content-center align-items-center feed-sm mt-2"
+          style={{ minWidth: "270px", minHeight: "calc(100vh - 120px)" }}
+        >
+          <Card style={{ width: "35rem" }}>
+            <Card.Body>
+              <Card.Title>{post.user}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+                {post.updated_at}
+              </Card.Subtitle>
+              <hr className="bg-primary-subtle border-2 border-top border-primary-subtle" />
+              <Card.Text>{post.content}</Card.Text>
+            </Card.Body>
+            {user && user.nickname == post.user && (
+              <Card.Footer className="d-flex justify-content-end gap-3">
+                <Button variant="outline-primary" onClick={handleShow}>
+                  <FiEdit />
+                </Button>
 
-              <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Edit Post</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlTextarea1"
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Edit Post</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Form>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlTextarea1"
+                      >
+                        <Form.Control
+                          as="textarea"
+                          rows={3}
+                          defaultValue={post.content}
+                          onChange={(e) => {
+                            setUpdatedPost({
+                              ...updatedPost,
+                              content: e.target.value,
+                            });
+                          }}
+                        />
+                      </Form.Group>
+                    </Form>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      Close
+                    </Button>
+                    <Button
+                      variant="primary"
+                      disabled={
+                        !updatedPost.content ||
+                        updatedPost.content === post.content
+                      }
+                      onClick={editPost}
                     >
-                      <Form.Label>Edit your post below</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        rows={3}
-                        onChange={(e) => {
-                          setUpdatedPost({
-                            ...updatedPost,
-                            content: e.target.value,
-                          });
-                        }}
-                      />
-                    </Form.Group>
-                  </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                  <Button
-                    variant="primary"
-                    disabled={!updatedPost.content}
-                    onClick={editPost}
-                  >
-                    Save Changes
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-              <Button variant="outline-danger" onClick={deletePost}>
-                <BsTrash />
-              </Button>
-            </Card.Footer>
-          )}
-        </Card>
-      </Container>
-    </>
-  );
+                      Save Changes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+                <Button variant="outline-danger" onClick={deletePost}>
+                  <BsTrash />
+                </Button>
+              </Card.Footer>
+            )}
+          </Card>
+        </Container>
+      </>
+    );
+  } else {
+    return;
+  }
 }
 
 export default Post;
