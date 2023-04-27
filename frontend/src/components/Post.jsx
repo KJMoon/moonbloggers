@@ -53,9 +53,10 @@ function Post() {
 
   const maxChars = 400;
 
-  const progress = updatedContent
-    ? (updatedContent.length / maxChars) * 100
-    : (post.content.length / maxChars) * 100;
+  const progress =
+    updatedContent !== post.content.length
+      ? (updatedContent.length / maxChars) * 100
+      : (post.content.length / maxChars) * 100;
 
   const editPost = async (e) => {
     e.preventDefault();
@@ -86,7 +87,7 @@ function Post() {
       await fetch(`http://localhost:5000/api/post/deletePost/${postId}`, {
         method: "DELETE",
       });
-      navigate("/");
+      navigate(-1);
     } catch (err) {
       console.error(err.message);
     }
@@ -110,7 +111,13 @@ function Post() {
             </Card.Body>
             {user && user.nickname == post.user && (
               <Card.Footer className="d-flex justify-content-end gap-3">
-                <Button variant="outline-primary" onClick={handleShow}>
+                <Button
+                  variant="outline-primary"
+                  onClick={() => {
+                    handleShow();
+                    setUpdatedContent(post.content);
+                  }}
+                >
                   <FiEdit />
                 </Button>
 
@@ -133,12 +140,12 @@ function Post() {
                         />
                       </Form.Group>
                     </Form>
-                    {maxChars === updatedContent.length ? (
+                    {updatedContent.length === maxChars ? (
                       <ProgressBar
                         variant="info"
                         now={progress}
                         label={
-                          updatedContent
+                          updatedContent !== post.content.length
                             ? `${updatedContent.length}`
                             : `${post.content.length}`
                         }
@@ -149,7 +156,7 @@ function Post() {
                         variant="info"
                         now={progress}
                         label={
-                          updatedContent
+                          updatedContent !== post.content.length
                             ? `${updatedContent.length}`
                             : `${post.content.length}`
                         }
