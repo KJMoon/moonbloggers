@@ -1,12 +1,23 @@
 @import "~bootstrap/scss/bootstrap";
 
+textarea, textarea:focus, textarea:hover {
+  border: none;
+  overflow: auto;
+  outline: none;
+  // -webkit-box-shadow: none;
+  // -moz-box-shadow: none;
+  // box-shadow: none;
+
+  resize: none; /*remove the resize handle on the bottom right*/
+}
+
 @media screen and (min-width: 226px) and (max-width: 576px) {
     .content-sm {
       margin-top: 56px !important;
     }
 }
 
-@media screen and (max-width: 266px) {
+@media screen and (max-width: 283px) {
     .feed-sm {
       margin-top: 45px !important;
     }

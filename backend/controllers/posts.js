@@ -19,7 +19,7 @@ module.exports = {
     // Get all posts for the feed
     getPosts: async (req, res) => {
         try {
-            const posts= await pool.query('SELECT * FROM posts ORDER BY id DESC');
+            const posts= await pool.query('SELECT * FROM posts ORDER BY updated_at DESC');
 
             if(posts.rows.length === 0) {
                 res.status(404).send("No posts found!");
@@ -108,6 +108,7 @@ module.exports = {
                     id: post.id,
                     content: post.content,
                     user: user.username,
+                    user_id: post.user_id,
                     updated_at: post.updated_at
                   });
                 } catch (err) {
@@ -130,7 +131,7 @@ module.exports = {
               [content, auth0_token]
             );
 
-            res.status(200).send(newPost.rows[0]);
+            res.status(200).json({ message: "Post created!"});
         } catch (err) {
             res.status(500).send(err);
         }
@@ -146,7 +147,7 @@ module.exports = {
               [req.body.content, post_id]
             );
 
-            res.status(200).send("Post edited!");
+            res.status(200).json({ message: "Saved changes!"});
         } catch (err) {
             res.status(500).send(err);
         }

@@ -19,7 +19,7 @@ function Navigationbar() {
     return (
       <Navbar fixed="top" bg="primary-subtle" expand="sm">
         <Container fluid>
-          <Navbar.Brand href="http://localhost:3000/">
+          <Navbar.Brand href="/">
             <Image
               src="https://pic.onlinewebfonts.com/svg/img_7362.png"
               alt="logo"
@@ -44,20 +44,18 @@ function Navigationbar() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="http://localhost:3000/">Home</Nav.Link>
-                <Nav.Link href="http://localhost:3000/">Profile</Nav.Link>
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/">Profile</Nav.Link>
                 <NavDropdown
                   title="Menu"
                   id={`offcanvasNavbarDropdown-expand-sm`}
                 >
-                  <NavDropdown.Item href="http://localhost:3000/">
-                    Add Post
-                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/create">Add Post</NavDropdown.Item>
                   <NavDropdown.Item>
                     <AuthButton />
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="http://localhost:3000/">
+                  <NavDropdown.Item href="/">
                     Something else here
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -82,7 +80,7 @@ function Navigationbar() {
     return (
       <Navbar fixed="top" bg="primary-subtle" expand="sm">
         <Container fluid>
-          <Navbar.Brand href="http://localhost:3000/">
+          <Navbar.Brand href="/">
             <Image
               src="https://pic.onlinewebfonts.com/svg/img_7362.png"
               alt="logo"

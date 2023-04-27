@@ -19,7 +19,7 @@ export default function RootLayout() {
             <Navigationbar />
           </header>
           <main
-            className="bg-dark text-white py-3"
+            className="bg-dark text-white pt-3 pb-4"
             style={{ minHeight: "calc(100vh - 120px)" }}
           >
             <Outlet />

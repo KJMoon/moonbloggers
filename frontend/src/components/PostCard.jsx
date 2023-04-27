@@ -37,6 +37,7 @@ function PostCard({ post }) {
         <Card style={{ width: "35rem" }}>
           <Card.Body>
             <Card.Title>{postOwner.username}</Card.Title>
+            <hr className="bg-primary-subtle border-2 border-top border-primary-subtle" />
             <Card.Text>{post.content}</Card.Text>
           </Card.Body>
         </Card>
@@ -49,6 +50,7 @@ function PostCard({ post }) {
         <Card style={{ width: "14rem" }}>
           <Card.Body>
             <Card.Title>{postOwner.username}</Card.Title>
+            <hr className="bg-primary-subtle border-2 border-top border-primary-subtle" />
             <Card.Text>{post.content}</Card.Text>
           </Card.Body>
         </Card>

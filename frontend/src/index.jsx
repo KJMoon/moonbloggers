@@ -8,6 +8,10 @@ import {
 } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Home from "./components/Home";
+import Post from "./components/Post";
+import AddPost from "./components/AddPost";
+
+// import bootstrap
 import "./assets/scss/styles.scss";
 
 // layouts
@@ -17,8 +21,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
-      {/* <Route path="/:username" element={<Profile />} />
-      <Route path="/post/:postId" element={<Post />} /> */}
+      {/* <Route path="/:username" element={<Profile />} /> */}
+      <Route path="/create" element={<AddPost />} />
+      <Route path="/post/:postId" element={<Post />} />
     </Route>
   )
 );
