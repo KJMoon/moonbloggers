@@ -4,7 +4,7 @@ const postsController = require("../controllers/posts");
 
 router.get("/:id", postsController.getPost);
 
-router.post("/createPost/", postsController.createPost);
+router.post("/createPost", postsController.createPost);
 
 router.patch("/editPost/:id", postsController.editPost);
 

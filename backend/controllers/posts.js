@@ -131,7 +131,7 @@ module.exports = {
               [content, auth0_token]
             );
 
-            res.status(200).send(newPost.rows[0]);
+            res.status(200).json({ message: "Post created!"});
         } catch (err) {
             res.status(500).send(err);
         }
