@@ -19,7 +19,7 @@ module.exports = {
     // Get all posts for the feed
     getPosts: async (req, res) => {
         try {
-            const posts= await pool.query('SELECT * FROM posts ORDER BY updated_at DESC');
+            const posts= await pool.query('SELECT * FROM posts ORDER BY created_at DESC');
 
             if(posts.rows.length === 0) {
                 res.status(404).send("No posts found!");
@@ -44,7 +44,7 @@ module.exports = {
                 const user = users.rows[0];
 
                 try {
-                    const posts = await pool.query('SELECT * FROM posts WHERE user_id=$1 ORDER BY id DESC', [user.id]);
+                    const posts = await pool.query('SELECT * FROM posts WHERE user_id=$1 ORDER BY created_at DESC', [user.id]);
 
                     res.status(200).json(posts.rows);
                 } catch (err) {
