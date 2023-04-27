@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import ProgressBar from "react-bootstrap/ProgressBar";
 import { BsTrash } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 
@@ -17,9 +18,6 @@ function Post() {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const [post, setPost] = useState({
     id: "",
     content: "",
@@ -28,13 +26,7 @@ function Post() {
     updated_at: "",
   });
 
-  const [updatedPost, setUpdatedPost] = useState({
-    id: "",
-    content: "",
-    user: "",
-    user_id: "",
-    updated_at: "",
-  });
+  const [updatedContent, setUpdatedContent] = useState("");
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/post/${postId}`, {
@@ -51,12 +43,24 @@ function Post() {
         });
       })
       .catch((err) => err);
-  }, [postId, updatedPost, setUpdatedPost]);
+  }, [postId, updatedContent, setUpdatedContent]);
+
+  const handleClose = () => {
+    setShow(false);
+    setUpdatedContent("");
+  };
+  const handleShow = () => setShow(true);
+
+  const maxChars = 400;
+
+  const progress = updatedContent
+    ? (updatedContent.length / maxChars) * 100
+    : (post.content.length / maxChars) * 100;
 
   const editPost = async (e) => {
     e.preventDefault();
     try {
-      const body = { content: updatedPost.content };
+      const body = { content: updatedContent };
       const res = await fetch(
         `http://localhost:5000/api/post/editPost/${postId}`,
         {
@@ -66,13 +70,11 @@ function Post() {
         }
       );
       const data = await res.json();
-      setUpdatedPost({
-        id: "",
-        content: "",
-        user: "",
-        user_id: "",
-        updated_at: "",
-      });
+
+      setUpdatedContent("");
+
+      window.alert(data.message);
+
       handleClose();
     } catch (err) {
       console.error(err.message);
@@ -125,16 +127,34 @@ function Post() {
                         <Form.Control
                           as="textarea"
                           rows={3}
+                          maxLength={maxChars}
                           defaultValue={post.content}
-                          onChange={(e) => {
-                            setUpdatedPost({
-                              ...updatedPost,
-                              content: e.target.value,
-                            });
-                          }}
+                          onChange={(e) => setUpdatedContent(e.target.value)}
                         />
                       </Form.Group>
                     </Form>
+                    {maxChars === updatedContent.length ? (
+                      <ProgressBar
+                        variant="info"
+                        now={progress}
+                        label={
+                          updatedContent
+                            ? `${updatedContent.length}`
+                            : `${post.content.length}`
+                        }
+                      />
+                    ) : (
+                      <ProgressBar
+                        striped
+                        variant="info"
+                        now={progress}
+                        label={
+                          updatedContent
+                            ? `${updatedContent.length}`
+                            : `${post.content.length}`
+                        }
+                      />
+                    )}
                   </Modal.Body>
                   <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -143,8 +163,7 @@ function Post() {
                     <Button
                       variant="primary"
                       disabled={
-                        !updatedPost.content ||
-                        updatedPost.content === post.content
+                        !updatedContent || updatedContent === post.content
                       }
                       onClick={editPost}
                     >
