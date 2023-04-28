@@ -153,7 +153,7 @@ module.exports = {
         }
     },
 
-    // Delete users howl
+    // Delete users post
     deletePost: async (req, res) => {
         try {
             const post_id = req.params.id;
