@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import AuthButton from "../components/AuthButton";
 import Feed from "./Feed";
 
 function Home() {
@@ -44,13 +45,7 @@ function Home() {
               <p className="mb-0 mt-3">
                 A community that Moonblogs together, stays together
               </p>
-              <Button
-                className="rounded-pill mt-3"
-                variant="outline-light"
-                onClick={() => loginWithRedirect()}
-              >
-                Log In To Begin
-              </Button>
+              <AuthButton />
             </Col>
           </Row>
         </Container>

@@ -18,11 +18,11 @@ const LoginButton = () => {
   } else if (!isAuthenticated && !isLoading) {
     return (
       <Button
-        className="rounded-pill"
-        variant="outline-dark"
+        className="rounded-pill mt-3"
+        variant="outline-light"
         onClick={() => loginWithRedirect()}
       >
-        Log In
+        Log In To Begin
       </Button>
     );
   } else {
