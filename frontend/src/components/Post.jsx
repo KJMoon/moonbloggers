@@ -10,6 +10,7 @@ import Modal from "react-bootstrap/Modal";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { BsTrash } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
+import Likes from "./Likes";
 
 function Post() {
   const navigate = useNavigate();
@@ -109,80 +110,92 @@ function Post() {
               <hr className="bg-primary-subtle border-2 border-top border-primary-subtle" />
               <Card.Text>{post.content}</Card.Text>
             </Card.Body>
-            {user && user.nickname == post.user && (
-              <Card.Footer className="d-flex justify-content-end gap-3">
-                <Button
-                  variant="outline-primary"
-                  onClick={() => {
-                    handleShow();
-                    setUpdatedContent(post.content);
-                  }}
-                >
-                  <FiEdit />
-                </Button>
-
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Edit Post</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Form>
-                      <Form.Group
-                        className="mb-3"
-                        controlId="exampleForm.ControlTextarea1"
-                      >
-                        <Form.Control
-                          as="textarea"
-                          rows={3}
-                          maxLength={maxChars}
-                          defaultValue={post.content}
-                          onChange={(e) => setUpdatedContent(e.target.value)}
-                        />
-                      </Form.Group>
-                    </Form>
-                    {updatedContent.length === maxChars ? (
-                      <ProgressBar
-                        variant="info"
-                        now={progress}
-                        label={
-                          updatedContent !== post.content.length
-                            ? `${updatedContent.length}`
-                            : `${post.content.length}`
-                        }
-                      />
-                    ) : (
-                      <ProgressBar
-                        striped
-                        variant="info"
-                        now={progress}
-                        label={
-                          updatedContent !== post.content.length
-                            ? `${updatedContent.length}`
-                            : `${post.content.length}`
-                        }
-                      />
-                    )}
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Close
-                    </Button>
+            <Card.Footer className="d-flex justify-content-start align-items-center px-4 gap-2">
+              <Likes postId={postId} />
+              {user && user.nickname == post.user && (
+                <div className="d-flex align-items-center py-0 pe-3 gap-2">
+                  <div>
                     <Button
-                      variant="primary"
-                      disabled={
-                        !updatedContent || updatedContent === post.content
-                      }
-                      onClick={editPost}
+                      variant="light"
+                      className="pt-0 pb-1 px-0"
+                      onClick={() => {
+                        handleShow();
+                        setUpdatedContent(post.content);
+                      }}
                     >
-                      Save Changes
+                      <FiEdit style={{ color: "blue" }} />
                     </Button>
-                  </Modal.Footer>
-                </Modal>
-                <Button variant="outline-danger" onClick={deletePost}>
-                  <BsTrash />
-                </Button>
-              </Card.Footer>
-            )}
+
+                    <Modal show={show} onHide={handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Edit Post</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Form>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="exampleForm.ControlTextarea1"
+                          >
+                            <Form.Control
+                              as="textarea"
+                              rows={3}
+                              maxLength={maxChars}
+                              defaultValue={post.content}
+                              onChange={(e) =>
+                                setUpdatedContent(e.target.value)
+                              }
+                            />
+                          </Form.Group>
+                        </Form>
+                        {updatedContent.length === maxChars ? (
+                          <ProgressBar
+                            variant="info"
+                            now={progress}
+                            label={
+                              updatedContent !== post.content.length
+                                ? `${updatedContent.length}`
+                                : `${post.content.length}`
+                            }
+                          />
+                        ) : (
+                          <ProgressBar
+                            striped
+                            variant="info"
+                            now={progress}
+                            label={
+                              updatedContent !== post.content.length
+                                ? `${updatedContent.length}`
+                                : `${post.content.length}`
+                            }
+                          />
+                        )}
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                          Close
+                        </Button>
+                        <Button
+                          variant="primary"
+                          disabled={
+                            !updatedContent || updatedContent === post.content
+                          }
+                          onClick={editPost}
+                        >
+                          Save Changes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
+                  <Button
+                    variant="light"
+                    className="pt-0 pb-1 px-0"
+                    onClick={deletePost}
+                  >
+                    <BsTrash style={{ color: "red" }} />
+                  </Button>
+                </div>
+              )}
+            </Card.Footer>
           </Card>
         </Container>
       </>

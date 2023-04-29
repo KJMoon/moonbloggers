@@ -8,6 +8,4 @@ router.get("/api/profile/:username", postsController.getProfile);
 
 router.get("/api/random", postsController.getRandomPost);
 
-router.post("/api/user", postsController.getUser);
-
 module.exports = router;
