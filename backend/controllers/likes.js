@@ -12,7 +12,12 @@ module.exports = {
             if(likes.rows.length === 0) {
                 res.status(200).json({likes: "0"});
             }else{
-                res.status(200).json({likes: `${likes.rows.length}`});
+                const user_ids = likes.rows.map(like => like.user_id);
+
+                res.status(200).json({
+                    likes: `${likes.rows.length}`,
+                    likedUsers: user_ids
+                });
             }
         } catch (err) {
             res.status(500).send(err);

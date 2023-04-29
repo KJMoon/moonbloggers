@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mainRoutes = require("./routes/main");
+const usersRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const likeRoutes = require("./routes/likes");
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", mainRoutes);
+app.use("/api/users", usersRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/likes", likeRoutes);
 
