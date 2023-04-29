@@ -54,13 +54,9 @@ function Navigationbar() {
                   <NavDropdown.Item>
                     <AuthButton />
                   </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="/">
-                    Something else here
-                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
-              <Form className="d-flex">
+              {/* <Form className="d-flex">
                 <Form.Control
                   type="search"
                   placeholder="Search"
@@ -70,7 +66,7 @@ function Navigationbar() {
                 <Button className="rounded-pill" variant="outline-dark">
                   Search
                 </Button>
-              </Form>
+              </Form> */}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
