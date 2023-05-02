@@ -29,6 +29,9 @@ function Post() {
 
   const [updatedContent, setUpdatedContent] = useState("");
 
+  //The following state is added for rendering purposes. Every time a user saves their changes when editing a post, this state will cause the useEffect to run to fetch the changed post
+  const [editedState, setEditedState] = useState(false);
+
   useEffect(() => {
     fetch(`http://localhost:5000/api/post/${postId}`, {
       headers: { "Content-Type": "application/json" },
@@ -44,7 +47,7 @@ function Post() {
         });
       })
       .catch((err) => err);
-  }, [postId, updatedContent, setUpdatedContent]);
+  }, [postId, editedState]);
 
   const handleClose = () => {
     setShow(false);
@@ -78,6 +81,8 @@ function Post() {
       window.alert(data.message);
 
       handleClose();
+
+      setEditedState(!editedState);
     } catch (err) {
       console.error(err.message);
     }

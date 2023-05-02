@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const usersController = require("../controllers/users");
 const postsController = require("../controllers/posts");
+
+router.post("/", usersController.signedIn);
 
 router.get("/api/feed", postsController.getPosts);
 
