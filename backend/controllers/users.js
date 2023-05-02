@@ -9,7 +9,7 @@ module.exports = {
 
             const newUser = await pool.query('INSERT INTO users (username, auth0_token) VALUES ($1, $2) ON CONFLICT (username) DO NOTHING RETURNING *', [username, auth0_token]);
 
-            newUser.rows.length === 1 ? res.status(200).send("New user added") : res.status(200).send(`${username} is signed in`);
+            newUser.rows.length === 1 ? res.status(200).json({message: "New user added"}) : res.status(200).json({message: `${username} is signed in`});
         } catch (err) {
             res.status(500).send(err);
         }
