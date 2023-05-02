@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -e 'js, jsx, json' server.js -L"
+    "start": "node server.js"
   },
   "license": "ISC",
   "dependencies": {
