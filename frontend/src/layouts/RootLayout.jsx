@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import Navigationbar from "../components/Navigationbar";
@@ -7,7 +7,28 @@ import Container from "react-bootstrap/Container";
 import LoadingPage from "../components/LoadingPage";
 
 export default function RootLayout() {
-  const { isLoading } = useAuth0();
+  const { isAuthenticated, user, isLoading } = useAuth0();
+
+  const [hasLoggedIn, setHasLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated && !isLoading && !hasLoggedIn) {
+      const body = {
+        username: user.nickname,
+        auth0_token: user.sub,
+      };
+
+      fetch("http://localhost:5000/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+
+      setHasLoggedIn(true);
+    }
+  }, [isAuthenticated, hasLoggedIn]);
 
   if (isLoading) {
     return <LoadingPage />;

@@ -1,25 +1,23 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import {
-  Button,
-  Container,
-  Form,
-  Nav,
-  Navbar,
-  NavDropdown,
-  Offcanvas,
-  Image,
-} from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Image from "react-bootstrap/Image";
 import AuthButton from "../components/AuthButton";
 
 function Navigationbar() {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const navigate = useNavigate();
 
   if (isAuthenticated && !isLoading) {
     return (
       <Navbar fixed="top" bg="primary-subtle" expand="sm">
         <Container fluid>
-          <Navbar.Brand href="/">
+          <Navbar.Brand as={Link} to="/" onClick={() => navigate("/")}>
             <Image
               src="https://pic.onlinewebfonts.com/svg/img_7362.png"
               alt="logo"
@@ -44,13 +42,27 @@ function Navigationbar() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href={`/${user.nickname}`}>Profile</Nav.Link>
+                <Nav.Link as={Link} to="/" onClick={() => navigate("/")}>
+                  Home
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to={`/${user.nickname}`}
+                  onClick={() => navigate(`/${user.nickname}`)}
+                >
+                  Profile
+                </Nav.Link>
                 <NavDropdown
                   title="Menu"
                   id={`offcanvasNavbarDropdown-expand-sm`}
                 >
-                  <NavDropdown.Item href="/create">Add Post</NavDropdown.Item>
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/create"
+                    onClick={() => navigate("/create")}
+                  >
+                    Add Post
+                  </NavDropdown.Item>
                   <NavDropdown.Item>
                     <AuthButton />
                   </NavDropdown.Item>
@@ -76,7 +88,7 @@ function Navigationbar() {
     return (
       <Navbar fixed="top" bg="primary-subtle" expand="sm">
         <Container fluid>
-          <Navbar.Brand href="/">
+          <Navbar.Brand as={Link} to="/" onClick={() => navigate("/")}>
             <Image
               src="https://pic.onlinewebfonts.com/svg/img_7362.png"
               alt="logo"
