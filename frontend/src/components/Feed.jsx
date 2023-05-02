@@ -11,7 +11,7 @@ function Feed({ userPosts, username }) {
   const [allPosts, setAllPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/feed")
+    fetch("https://moonbloggers-backend.onrender.com/api/feed")
       .then((res) => res.json())
       .then((data) => {
         setAllPosts(data);
