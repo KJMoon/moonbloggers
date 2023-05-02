@@ -15,7 +15,7 @@ function Likes({ post, postId }) {
       username: user.nickname,
     };
 
-    fetch("http://localhost:5000/api/users/currentuser", {
+    fetch("https://moonbloggers-backend.onrender.com/api/users/currentuser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -32,7 +32,7 @@ function Likes({ post, postId }) {
       post_id: post ? post.id : postId,
     };
 
-    fetch("http://localhost:5000/api/likes/likescount", {
+    fetch("https://moonbloggers-backend.onrender.com/api/likes/likescount", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -58,11 +58,14 @@ function Likes({ post, postId }) {
         post_id: post ? post.id : postId,
       };
 
-      const res = await fetch(`http://localhost:5000/api/likes/addlike`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const res = await fetch(
+        `https://moonbloggers-backend.onrender.com/api/likes/addlike`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       const data = await res.json();
 
       setPostLiked(true);
@@ -78,11 +81,14 @@ function Likes({ post, postId }) {
         post_id: post ? post.id : postId,
       };
 
-      const res = await fetch(`http://localhost:5000/api/likes/deletelike`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const res = await fetch(
+        `https://moonbloggers-backend.onrender.com/api/likes/deletelike`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }
+      );
       const data = await res.json();
 
       setPostLiked(false);

@@ -18,7 +18,7 @@ export default function RootLayout() {
         auth0_token: user.sub,
       };
 
-      fetch("http://localhost:5000/", {
+      fetch("https://moonbloggers-backend.onrender.com/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),

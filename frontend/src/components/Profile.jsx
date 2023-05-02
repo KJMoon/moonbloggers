@@ -10,7 +10,7 @@ function Profile() {
   const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/profile/${username}`)
+    fetch(`https://moonbloggers-backend.onrender.com/api/profile/${username}`)
       .then((res) => res.json())
       .then((data) => {
         setUserPosts(data);

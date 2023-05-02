@@ -33,7 +33,7 @@ function Post() {
   const [editedState, setEditedState] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/post/${postId}`, {
+    fetch(`https://moonbloggers-backend.onrender.com/api/post/${postId}`, {
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
@@ -67,7 +67,7 @@ function Post() {
     try {
       const body = { content: updatedContent };
       const res = await fetch(
-        `http://localhost:5000/api/post/editPost/${postId}`,
+        `https://moonbloggers-backend.onrender.com/api/post/editPost/${postId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -90,9 +90,12 @@ function Post() {
 
   const deletePost = async () => {
     try {
-      await fetch(`http://localhost:5000/api/post/deletePost/${postId}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://moonbloggers-backend.onrender.com/api/post/deletePost/${postId}`,
+        {
+          method: "DELETE",
+        }
+      );
       navigate(-1);
     } catch (err) {
       console.error(err.message);
