@@ -1,4 +1,5 @@
 import path from "path";
+import toml from "toml";
 import { fileURLToPath } from 'url';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import Dotenv from 'dotenv-webpack';
@@ -63,6 +64,13 @@ export default {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
+      },
+      {
+        test: /\.toml$/i,
+        type: 'json',
+        parser: {
+          parse: toml.parse,
+        },
       },
     ]
   },
