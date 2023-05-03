@@ -31,8 +31,8 @@ const router = createBrowserRouter(
 
 const root = createRoot(document.getElementById("root"));
 
-const auth0Domain = process.env.REACT_APP_AUTH_ISSUER_BASE_URL;
-const auth0ClientId = process.env.REACT_APP_AUTH_CLIENT_ID;
+const auth0Domain = "https://dev-lxjzzdkv0pete2ea.us.auth0.com";
+const auth0ClientId = "ZBnEkT33jEVmkn0C330muYDGkvtyFfkK";
 
 root.render(
   <React.StrictMode>
