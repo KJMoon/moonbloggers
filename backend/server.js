@@ -13,7 +13,11 @@ const likeRoutes = require("./routes/likes");
 const PORT = 5000;
 const HOST = '0.0.0.0';
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://moonbloggers.netlify.app/",
+  })
+);
 
 //Body Parsing
 app.use(express.urlencoded({ extended: true }));
