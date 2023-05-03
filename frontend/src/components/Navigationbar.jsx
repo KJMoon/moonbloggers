@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import Container from "react-bootstrap/Container";
@@ -13,11 +13,21 @@ function Navigationbar() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const navigate = useNavigate();
 
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
+  const closeOffcanvas = () => setShowOffcanvas(false);
+
+  const navigateTo = (path) => {
+    closeOffcanvas();
+    // navigate to the path
+    navigate(path);
+  };
+
   if (isAuthenticated && !isLoading) {
     return (
       <Navbar fixed="top" bg="primary-subtle" expand="sm">
         <Container fluid>
-          <Navbar.Brand as={Link} to="/" onClick={() => navigate("/")}>
+          <Navbar.Brand as={Link} to="/" onClick={() => navigateTo("/")}>
             <Image
               src="https://pic.onlinewebfonts.com/svg/img_7362.png"
               alt="logo"
@@ -29,11 +39,16 @@ function Navigationbar() {
             />
             Moonbloggers
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
+          <Navbar.Toggle
+            aria-controls={`offcanvasNavbar-expand-sm`}
+            onClick={() => setShowOffcanvas((prev) => !prev)}
+          />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-sm`}
             aria-labelledby={`offcanvasNavbarLabel-expand-sm`}
             placement="end"
+            show={showOffcanvas}
+            onHide={closeOffcanvas}
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-sm`}>
@@ -42,13 +57,13 @@ function Navigationbar() {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link as={Link} to="/" onClick={() => navigate("/")}>
+                <Nav.Link as={Link} to="/" onClick={() => navigateTo("/")}>
                   Home
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to={`/${user.nickname}`}
-                  onClick={() => navigate(`/${user.nickname}`)}
+                  onClick={() => navigateTo(`/${user.nickname}`)}
                 >
                   Profile
                 </Nav.Link>
@@ -59,7 +74,7 @@ function Navigationbar() {
                   <NavDropdown.Item
                     as={Link}
                     to="/create"
-                    onClick={() => navigate("/create")}
+                    onClick={() => navigateTo("/create")}
                   >
                     Add Post
                   </NavDropdown.Item>
