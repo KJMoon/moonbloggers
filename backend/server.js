@@ -15,7 +15,7 @@ const HOST = '0.0.0.0';
 
 app.use(
   cors({
-    origin: "https://moonbloggers.netlify.app/",
+    origin: "https://moonbloggers.netlify.app",
   })
 );
 
